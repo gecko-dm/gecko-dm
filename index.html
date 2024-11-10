@@ -65,8 +65,39 @@
             color: #333;
         }
 
-        /* Button */
-        .btn {
+        /* Form Styles */
+        .order-form {
+            background-color: #ffffff;
+            padding: 40px;
+            margin-top: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-form h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-form input, .order-form select, .order-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .order-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .order-form button {
             background-color: #008CBA;
             color: white;
             padding: 15px 30px;
@@ -74,35 +105,12 @@
             font-weight: bold;
             border: none;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
             border-radius: 5px;
             margin-top: 20px;
         }
 
-        .btn:hover {
+        .order-form button:hover {
             background-color: #005f73;
-        }
-
-        /* Feature and Service Icons */
-        .feature, .service, .use-case {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .feature i, .service i, .use-case i {
-            font-size: 30px;
-            margin-right: 15px;
-            color: #008CBA;
         }
 
         footer {
@@ -212,11 +220,27 @@
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section style="background-color: #1a1a1a; color: white;">
-        <h2>Get Started Today!</h2>
-        <p>Protect your data and stay compliant with industry regulations. Learn more about our services.</p>
-        <a href="#contact" class="btn">Get Started</a>
+    <!-- Order Form Section -->
+    <section>
+        <div class="order-form">
+            <h3>Order Form</h3>
+            <form id="order-form" method="POST">
+                <label for="service">Choose Service:</label>
+                <select id="service" name="service" required>
+                    <option value="free-consultation">Order a FREE consultation (1 hour)</option>
+                    <option value="5-hour-subscription">Order a 5 hour subscription ($499)</option>
+                    <option value="ui-app">Order an UI app</option>
+                </select>
+                
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Detailed Message:</label>
+                <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -228,6 +252,24 @@
             <a href="mailto:contact@yourdomain.com">Contact Us</a>
         </p>
     </footer>
+
+    <script>
+        // JavaScript to dynamically change form action based on combo box selection
+        document.getElementById("order-form").addEventListener("submit", function(event) {
+            const serviceOption = document.getElementById("service").value;
+            let actionUrl = "";
+
+            if (serviceOption === "free-consultation") {
+                actionUrl = "https://formspree.io/f/mwpkbvkl";
+            } else if (serviceOption === "5-hour-subscription") {
+                actionUrl = "https://formspree.io/f/xdkozakw";
+            } else if (serviceOption === "ui-app") {
+                actionUrl = "https://formspree.io/f/xrbgkeae";
+            }
+
+            document.getElementById("order-form").action = actionUrl;
+        });
+    </script>
 
 </body>
 </html>
