@@ -36,7 +36,6 @@
         section {
             padding: 60px 20px;
             margin: 20px 0;
-            text-align: center;
         }
 
         section h2 {
@@ -63,6 +62,17 @@
             margin: 10px 0;
             font-size: 1.1em;
             color: #333;
+        }
+
+        /* Text Alignments */
+        /* Sections 2, 4, and 6 should have text aligned to the left */
+        section.left-align {
+            text-align: left;
+        }
+
+        /* Sections 3 and 5 should have text aligned to the right */
+        section.right-align {
+            text-align: right;
         }
 
         /* Form Styles */
@@ -126,6 +136,17 @@
             margin: 0 10px;
         }
 
+        /* Link Styles */
+        a.software-link {
+            color: #008CBA;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.software-link:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
@@ -137,15 +158,15 @@
     </header>
 
     <!-- Section 1: The Importance of Data Security -->
-    <section style="background-color: #f9f9f9;">
+    <section class="left-align" style="background-color: #f9f9f9;">
         <h2>The Need for Data Security</h2>
         <p>In today's digital landscape, the stakes for data security have never been higher. With the rise of stringent regulations like GDPR and growing public awareness following high-profile breaches such as the Facebook–Cambridge Analytica scandal, safeguarding sensitive data is a critical concern. We offer a solution for companies storing sensitive data, such as data about clients. The solution enables a company to minimize the risk of data leakage into public spaces, thereby saving money that would otherwise be spent on fines, compensations, and other expenses to cover security incidents involving unwanted distribution of sensitive data.</p>
     </section>
 
     <!-- Section 2: How It Works -->
-    <section>
+    <section class="left-align">
         <h2>How Our Solution Works</h2>
-        <p>We have created a software which employs pseudoanonymization (data masking) techniques to protect sensitive data stored in relational databases. There are different types of such sensitive data: names, birth dates, locations, credit card details, etc. Pseudoanonymization replaces identifiable data with placeholder values, rendering clients anonymous.</p>
+        <p>We have created a <a href="https://github.com/igor-pcholkin/DataAnonymization" class="software-link" target="_blank">software</a> which employs pseudoanonymization (data masking) techniques to protect sensitive data stored in relational databases. There are different types of such sensitive data: names, birth dates, locations, credit card details, etc. Pseudoanonymization replaces identifiable data with placeholder values, rendering clients anonymous.</p>
         <h3>Steps to Implement:</h3>
         <ul>
             <li><strong>Identify Sensitive Data</strong>: Mark (manually or automatically) which database columns require data masking.</li>
@@ -154,7 +175,7 @@
     </section>
 
     <!-- Section 3: Key Features -->
-    <section style="background-color: #f9f9f9;">
+    <section class="right-align" style="background-color: #f9f9f9;">
         <h2>Key Features</h2>
         <div class="feature">
             <i class="fas fa-database"></i>
@@ -179,7 +200,7 @@
     </section>
 
     <!-- Section 4: Additional Services -->
-    <section>
+    <section class="left-align">
         <h2>Additional Services</h2>
         <div class="service">
             <i class="fas fa-users"></i>
@@ -200,7 +221,7 @@
     </section>
 
     <!-- Section 5: Use Cases -->
-    <section style="background-color: #f9f9f9;">
+    <section class="right-align" style="background-color: #f9f9f9;">
         <h2>Real-World Use Cases</h2>
         <div class="use-case">
             <i class="fas fa-shield-alt"></i>
@@ -221,7 +242,7 @@
     </section>
 
     <!-- Order Form Section -->
-    <section>
+    <section class="left-align">
         <div class="order-form">
             <h3>Order Form</h3>
             <form id="order-form" method="POST">
