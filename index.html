@@ -5,40 +5,70 @@
   <p>
     Order FREE consultation (1 hour)
   </p>
-  <form
-  action="https://formspree.io/f/mwpkbvkl"
-  method="POST"
-  >
-  <label>
-    * Your email :
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-  </form>
+  <form id="free-form" action="https://formspree.io/f/mwpkbvkl" method="POST">
+  <label>* Email:</label>
+  <input type="email" name="email" />
+  <label>Message:</label>
+  <input type="text" name="message" />
+  <button id="my-form-button">Submit</button>
+  <p id="free-form.my-form-status"></p>
+   </form>
   <div></div>
   <p>
     Order consultation subscription (5 hours: $499)
   </p>
   <!-- modify this form HTML and place wherever you want your form -->
-<form
-  action="https://formspree.io/f/xdkozakw"
-  method="POST"
->
-  <label>
-    * Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+  <form id="5h-form" action="https://formspree.io/f/xdkozakw" method="POST">
+  <label>* Email:</label>
+  <input type="email" name="email" />
+  <label>Message:</label>
+  <input type="text" name="message" />
+  <button id="my-form-button">Submit</button>
+  <p id="5h-form.my-form-status"></p>
+   </form>
 </body>  
+<!-- Place this script at the end of the body tag -->
+<script>
+  var freeForm = document.getElementById("free-form");
+  var hours5Form = document.getElementById("5h-form");
+
+  async function handleSubmitFreeForm(event) {
+    var status = document.getElementById("free-form.my-form-status");
+    handleSubmit(event, status);
+  }
+
+  async function handleSubmit5hForm(event) {
+    var status = document.getElementById("5h-form.my-form-status");
+    handleSubmit(event, status);
+  }
+  
+  function handleSubmit(event, status) {
+    event.preventDefault();
+    var data = new FormData(event.target);
+    fetch(event.target.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        status.innerHTML = "Thanks for your submission!";
+        form.reset()
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+          } else {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+          }
+        })
+      }
+    }).catch(error => {
+      status.innerHTML = "Oops! There was a problem submitting your form"
+    });
+  }
+  freeForm.addEventListener("submit", handleSubmitFreeForm)
+  hours5Form.addEventListener("submit", handleSubmit5hForm)
+</script>  
 </html>
