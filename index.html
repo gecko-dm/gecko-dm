@@ -34,15 +34,15 @@
 
   async function handleSubmitFreeForm(event) {
     var status = document.getElementById("free-form.my-form-status");
-    handleSubmit(event, status);
+    handleSubmit(event, status, freeForm);
   }
 
   async function handleSubmit5hForm(event) {
     var status = document.getElementById("5h-form.my-form-status");
-    handleSubmit(event, status);
+    handleSubmit(event, status, hours5Form);
   }
   
-  function handleSubmit(event, status) {
+  function handleSubmit(event, status, form) {
     event.preventDefault();
     var data = new FormData(event.target);
     fetch(event.target.action, {
