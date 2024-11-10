@@ -1,74 +1,132 @@
-<html>
-<h1>Gecko data masking</h1>
-<body>
-  <!-- modify this form HTML and place wherever you want your form -->
-  <p>
-    Order FREE consultation (1 hour)
-  </p>
-  <form id="free-form" action="https://formspree.io/f/mwpkbvkl" method="POST">
-  <label>* Email:</label>
-  <input type="email" name="email" />
-  <label>Message:</label>
-  <input type="text" name="message" />
-  <button id="my-form-button">Submit</button>
-  <p id="free-form.my-form-status"></p>
-   </form>
-  <div></div>
-  <p>
-    Order consultation subscription (5 hours: $499)
-  </p>
-  <!-- modify this form HTML and place wherever you want your form -->
-  <form id="5h-form" action="https://formspree.io/f/xdkozakw" method="POST">
-  <label>* Email:</label>
-  <input type="email" name="email" />
-  <label>Message:</label>
-  <input type="text" name="message" />
-  <button id="my-form-button">Submit</button>
-  <p id="5h-form.my-form-status"></p>
-   </form>
-</body>  
-<!-- Place this script at the end of the body tag -->
-<script>
-  var freeForm = document.getElementById("free-form");
-  var hours5Form = document.getElementById("5h-form");
+import React, { useState } from 'react';
+import { Database, Settings, Users, FileCheck, ChevronDown, Shield } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-  async function handleSubmitFreeForm(event) {
-    var status = document.getElementById("free-form.my-form-status");
-    handleSubmit(event, status, freeForm);
-  }
+const RockLizardLogo = () => (
+  <svg viewBox="0 0 240 240" className="w-32 h-32 mx-auto">
+    {/* Logo SVG content remains the same */}
+    <circle cx="120" cy="120" r="110" fill="#1f2937" opacity="0.1"/>
+    <path d="M80 120 L120 110 L160 120 L180 130 L160 150 L120 140 L80 150 L60 130 Z" 
+          fill="#4b5563" stroke="#374151" strokeWidth="2"/>
+    <path d="M160 120 L190 110 L200 120 L190 130 Z" 
+          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
+    <path d="M60 130 L40 140 L30 130 L40 120 L60 130" 
+          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
+    <path d="M100 140 L90 160 L110 160 Z" 
+          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
+    <path d="M140 140 L130 160 L150 160 Z" 
+          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
+    <path d="M85 125 L115 120 M125 115 L155 120 M165 125 L185 130" 
+          stroke="#374151" strokeWidth="1" opacity="0.5"/>
+    <circle cx="180" cy="120" r="3" fill="#111827"/>
+    <circle cx="180" cy="120" r="1" fill="#white"/>
+    <text x="85" y="135" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">01</text>
+    <text x="135" y="125" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">10</text>
+    <text x="165" y="145" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">11</text>
+    <path d="M90 125 Q100 123, 110 125 M120 120 Q130 118, 140 120 M150 125 Q160 123, 170 125" 
+          stroke="#374151" strokeWidth="0.5" fill="none"/>
+  </svg>
+);
 
-  async function handleSubmit5hForm(event) {
-    var status = document.getElementById("5h-form.my-form-status");
-    handleSubmit(event, status, hours5Form);
-  }
-  
-  function handleSubmit(event, status, form) {
-    event.preventDefault();
-    var data = new FormData(event.target);
-    fetch(event.target.action, {
-      method: form.method,
-      body: data,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        status.innerHTML = "Thanks for your submission!";
-        form.reset()
-      } else {
-        response.json().then(data => {
-          if (Object.hasOwn(data, 'errors')) {
-            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
-          } else {
-            status.innerHTML = "Oops! There was a problem submitting your form"
-          }
-        })
-      }
-    }).catch(error => {
-      status.innerHTML = "Oops! There was a problem submitting your form"
-    });
-  }
-  freeForm.addEventListener("submit", handleSubmitFreeForm)
-  hours5Form.addEventListener("submit", handleSubmit5hForm)
-</script>  
-</html>
+const LandingPage = () => {
+  const [selectedService, setSelectedService] = useState("");
+
+  const formUrls = {
+    "free": "https://formspree.io/f/mwpkbvkl",
+    "subscription": "https://formspree.io/f/xdkozakw",
+    "ui-app": "https://formspree.io/f/xrbgkeae"
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <RockLizardLogo />
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight mt-8">
+            Converting secrets into symbols...
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300">
+            because not every piece of data needs to tell its whole story
+          </p>
+          <div className="mt-12">
+            <ChevronDown className="w-8 h-8 mx-auto animate-bounce text-gray-400" />
+          </div>
+        </div>
+      </section>
+
+      {/* Order Form Section */}
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-xl mx-auto">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-center">Place Your Order</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form 
+                action={selectedService ? formUrls[selectedService] : ""} 
+                method="POST"
+                className="space-y-6"
+              >
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">Select Service</label>
+                  <Select onValueChange={setSelectedService}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a service option" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="free">Order a FREE consultation (1 hour)</SelectItem>
+                      <SelectItem value="subscription">Order a 5 hour subscription ($499)</SelectItem>
+                      <SelectItem value="ui-app">Order an UI app</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <Input 
+                    type="email" 
+                    name="email"
+                    placeholder="your@email.com" 
+                    className="w-full"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">Message</label>
+                  <Textarea 
+                    name="message"
+                    placeholder="Please provide details about your requirements..."
+                    className="min-h-[100px]"
+                    required
+                  />
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gray-900 hover:bg-gray-800"
+                  disabled={!selectedService}
+                >
+                  Submit Order
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <footer className="bg-gray-900 text-white py-8 px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-gray-400">Secure your data today</p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default LandingPage;
