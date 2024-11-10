@@ -1,132 +1,233 @@
-import React, { useState } from 'react';
-import { Database, Settings, Users, FileCheck, ChevronDown, Shield } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Security Service</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
 
-const RockLizardLogo = () => (
-  <svg viewBox="0 0 240 240" className="w-32 h-32 mx-auto">
-    {/* Logo SVG content remains the same */}
-    <circle cx="120" cy="120" r="110" fill="#1f2937" opacity="0.1"/>
-    <path d="M80 120 L120 110 L160 120 L180 130 L160 150 L120 140 L80 150 L60 130 Z" 
-          fill="#4b5563" stroke="#374151" strokeWidth="2"/>
-    <path d="M160 120 L190 110 L200 120 L190 130 Z" 
-          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
-    <path d="M60 130 L40 140 L30 130 L40 120 L60 130" 
-          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
-    <path d="M100 140 L90 160 L110 160 Z" 
-          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
-    <path d="M140 140 L130 160 L150 160 Z" 
-          fill="#6b7280" stroke="#4b5563" strokeWidth="2"/>
-    <path d="M85 125 L115 120 M125 115 L155 120 M165 125 L185 130" 
-          stroke="#374151" strokeWidth="1" opacity="0.5"/>
-    <circle cx="180" cy="120" r="3" fill="#111827"/>
-    <circle cx="180" cy="120" r="1" fill="#white"/>
-    <text x="85" y="135" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">01</text>
-    <text x="135" y="125" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">10</text>
-    <text x="165" y="145" fill="#374151" opacity="0.3" fontFamily="monospace" fontSize="8">11</text>
-    <path d="M90 125 Q100 123, 110 125 M120 120 Q130 118, 140 120 M150 125 Q160 123, 170 125" 
-          stroke="#374151" strokeWidth="0.5" fill="none"/>
-  </svg>
-);
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
 
-const LandingPage = () => {
-  const [selectedService, setSelectedService] = useState("");
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: normal;
+        }
 
-  const formUrls = {
-    "free": "https://formspree.io/f/mwpkbvkl",
-    "subscription": "https://formspree.io/f/xdkozakw",
-    "ui-app": "https://formspree.io/f/xrbgkeae"
-  };
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <RockLizardLogo />
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight mt-8">
-            Converting secrets into symbols...
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300">
-            because not every piece of data needs to tell its whole story
-          </p>
-          <div className="mt-12">
-            <ChevronDown className="w-8 h-8 mx-auto animate-bounce text-gray-400" />
-          </div>
+        /* Section Styles */
+        section {
+            padding: 60px 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        section ul li {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        /* Button */
+        .btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #005f73;
+        }
+
+        /* Feature and Service Icons */
+        .feature, .service, .use-case {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature i, .service i, .use-case i {
+            font-size: 30px;
+            margin-right: 15px;
+            color: #008CBA;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: #61dafb;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header>
+        <h1>Converting secrets into symbols...</h1>
+        <p>... because not every piece of data needs to tell its whole story</p>
+    </header>
+
+    <!-- Section 1: The Importance of Data Security -->
+    <section style="background-color: #f9f9f9;">
+        <h2>The Need for Data Security</h2>
+        <p>In today's digital landscape, the stakes for data security have never been higher. With the rise of stringent regulations like GDPR and growing public awareness following high-profile breaches such as the Facebook–Cambridge Analytica scandal, safeguarding sensitive data is a critical concern. We offer a solution for companies storing sensitive data, such as data about clients. The solution enables a company to minimize the risk of data leakage into public spaces, thereby saving money that would otherwise be spent on fines, compensations, and other expenses to cover security incidents involving unwanted distribution of sensitive data.</p>
+    </section>
+
+    <!-- Section 2: How It Works -->
+    <section>
+        <h2>How Our Solution Works</h2>
+        <p>We have created a software which employs pseudoanonymization (data masking) techniques to protect sensitive data stored in relational databases. There are different types of such sensitive data: names, birth dates, locations, credit card details, etc. Pseudoanonymization replaces identifiable data with placeholder values, rendering clients anonymous.</p>
+        <h3>Steps to Implement:</h3>
+        <ul>
+            <li><strong>Identify Sensitive Data</strong>: Mark (manually or automatically) which database columns require data masking.</li>
+            <li><strong>Perform Data Masking</strong>: Apply data masking to the marked sensitive columns.</li>
+        </ul>
+    </section>
+
+    <!-- Section 3: Key Features -->
+    <section style="background-color: #f9f9f9;">
+        <h2>Key Features</h2>
+        <div class="feature">
+            <i class="fas fa-database"></i>
+            <p>Compatible with any JDBC-compliant relational database (Oracle, MySQL, SQL Server, etc.)</p>
         </div>
-      </section>
-
-      {/* Order Form Section */}
-      <section className="py-20 px-8 bg-white">
-        <div className="max-w-xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold text-center">Place Your Order</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form 
-                action={selectedService ? formUrls[selectedService] : ""} 
-                method="POST"
-                className="space-y-6"
-              >
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Select Service</label>
-                  <Select onValueChange={setSelectedService}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a service option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="free">Order a FREE consultation (1 hour)</SelectItem>
-                      <SelectItem value="subscription">Order a 5 hour subscription ($499)</SelectItem>
-                      <SelectItem value="ui-app">Order an UI app</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Email</label>
-                  <Input 
-                    type="email" 
-                    name="email"
-                    placeholder="your@email.com" 
-                    className="w-full"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Message</label>
-                  <Textarea 
-                    name="message"
-                    placeholder="Please provide details about your requirements..."
-                    className="min-h-[100px]"
-                    required
-                  />
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gray-900 hover:bg-gray-800"
-                  disabled={!selectedService}
-                >
-                  Submit Order
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+        <div class="feature">
+            <i class="fas fa-laptop"></i>
+            <p>Runs under any OS which supports Java: Windows/Mac OS/Linux etc.</p>
         </div>
-      </section>
-
-      <footer className="bg-gray-900 text-white py-8 px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-400">Secure your data today</p>
+        <div class="feature">
+            <i class="fas fa-cogs"></i>
+            <p>Customized Pseudoanonymization strategies for different types of sensitive data (names, personal codes, birth dates, etc.)</p>
         </div>
-      </footer>
-    </div>
-  );
-};
+        <div class="feature">
+            <i class="fas fa-file-alt"></i>
+            <p>Intuitive Schema Declaration via a YAML schema for seamless integration.</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-code"></i>
+            <p>Open Source Advantage: Transparency, extensibility, and collaborative potential.</p>
+        </div>
+    </section>
 
-export default LandingPage;
+    <!-- Section 4: Additional Services -->
+    <section>
+        <h2>Additional Services</h2>
+        <div class="service">
+            <i class="fas fa-users"></i>
+            <p>Expert Consultation: Setup guidance, customized solutions, and GDPR compliance readiness.</p>
+        </div>
+        <div class="service">
+            <i class="fas fa-tachometer-alt"></i>
+            <p>UI Dashboard: User-friendly workbench for effortless data processing.</p>
+        </div>
+        <div class="service">
+            <i class="fas fa-sync"></i>
+            <p>Comprehensive Tracking: Monitor changes to your database.</p>
+        </div>
+        <div class="service">
+            <i class="fas fa-lock"></i>
+            <p>Automatic Backup/Restore: Secure data backup with optional encryption.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: Use Cases -->
+    <section style="background-color: #f9f9f9;">
+        <h2>Real-World Use Cases</h2>
+        <div class="use-case">
+            <i class="fas fa-shield-alt"></i>
+            <p>Comprehensive Data Security: Anonymizing data reduces the risk of data breaches and identity theft.</p>
+        </div>
+        <div class="use-case">
+            <i class="fas fa-archive"></i>
+            <p>Data Retention Compliance: Meet GDPR requirements with pseudonymized data while preserving historical records.</p>
+        </div>
+        <div class="use-case">
+            <i class="fas fa-desktop"></i>
+            <p>Secure Development Environments: Protect sensitive data in non-production environments.</p>
+        </div>
+        <div class="use-case">
+            <i class="fas fa-chart-line"></i>
+            <p>Marketing Insights: Use anonymized data for customer analysis without compromising privacy.</p>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section style="background-color: #1a1a1a; color: white;">
+        <h2>Get Started Today!</h2>
+        <p>Protect your data and stay compliant with industry regulations. Learn more about our services.</p>
+        <a href="#contact" class="btn">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Data Security Solutions. All rights reserved.</p>
+        <p>
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="mailto:contact@yourdomain.com">Contact Us</a>
+        </p>
+    </footer>
+
+</body>
+</html>
