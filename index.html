@@ -152,14 +152,47 @@
             text-decoration: underline;
         }
 
+        .header-section-container {
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .image-section {
+            flex: 1;
+        }
+
+        .slogan-section {
+            flex: 1;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .section-container {
+                flex-direction: column;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Hero Section -->
     <header>
-        <h1>Converting secrets into symbols...</h1>
-        <p>... because not every piece of data needs to tell its whole story</p>
+        <div class="header-section-container">
+            <section class="image-section">
+                <img src="gekko combined from medium size of uneven stones with uniform black background_1_200.jpg">
+            </section>  
+            <section class="slogan-section">
+                <h1>Converting secrets into symbols...</h1>
+                <p>... because not every piece of data needs to tell its whole story</p>
+            </section>
+        </div>    
     </header>
 
     <!-- Section 1: The Importance of Data Security -->
