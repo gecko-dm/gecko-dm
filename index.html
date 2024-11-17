@@ -4,180 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Security Service</title>
-    <style>
-        /* Global Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            /* background-color: #f4f4f4; */
-        }
-
-        header {
-            background: #aaaaaa;
-            color: white;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin: 0;
-            font-weight: normal;
-        }
-
-        header p {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-        /* Section Styles */
-        section {
-            padding: 20px;
-        }
-
-        section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-        }
-
-        section p {
-            font-size: 1.1em;
-            color: #555;
-            margin: 0 auto;
-            margin-bottom: 10px;
-        }
-
-        section ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        section ul li {
-            margin: 10px 0;
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        /* Text Alignments */
-        /* Sections 2, 4, and 6 should have text aligned to the left */
-        section.left-align {
-            text-align: left;
-            max-width: 800px;
-            background-color: #f9f9f9;
-        }
-
-        /* Sections 3 and 5 should have text aligned to the right */
-        section.right-align {
-            margin-left: auto;
-            max-width: 800px;
-        }
-
-        /* Form Styles */
-        .order-form {
-            background-color: #ffffff;
-            padding: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .order-form h3 {
-            font-size: 1.5em;
-            margin-top: 0px;
-            color: #333;
-        }
-
-        .order-form input, .order-form select, .order-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-
-        .order-form textarea {
-            resize: vertical;
-            height: 150px;
-        }
-
-        .order-form button {
-            background-color: #008CBA;
-            color: white;
-            padding: 15px 30px;lef
-            text-transform: uppercase;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .order-form button:hover {
-            background-color: #005f73;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer a {
-            color: #61dafb;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        /* Link Styles */
-        a.software-link {
-            color: #008CBA;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a.software-link:hover {
-            text-decoration: underline;
-        }
-
-        .header-section-container {
-            display: flex;
-            align-items: start;
-        }
-
-        .image-section {
-            /*display: flex;
-            justify-content: flex-end;*/
-            width: auto;
-            padding: 0px;
-            margin: 0px;
-        }
-
-        .slogan-section {
-            margin: 0px;
-            margin-top: 20px;
-            padding: 0px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .slogan-section h1 {
-                font-size: 18px; /* Smaller font on mobile */
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -291,11 +118,12 @@
     <section>
         <div class="order-form">
             <h3>Start to use our service</h3>
-            <form id="order-form" method="POST">
+            <form id="order-form" method="POST" action="https://formspree.io/f/mwpkbvkl">
                 <select id="service" name="service" required>
-                    <option value="free-consultation">Order a FREE consultation (1 hour)</option>
+                    <option value="ask-question">Ask a question</option>
+                    <option value="free-consultation">Order a (1 hour) consultation <strikethrough>($155)</strikethrough> FREE!</option>
                     <option value="5-hour-subscription">Order 5 (1 hour) consultations ($499)</option>
-                    <option value="ui-app">Order an UI app</option>
+                    <option value="ui-app">Order UI dashboard <strikethrough>($99)</strikethrough> FREE!</option>
                 </select>
                 
                 <label for="email">Your Email:</label>
@@ -313,24 +141,6 @@
     <footer>
         <p>&copy; 2024 Data Security Solutions. All rights reserved.</p>
     </footer>
-
-    <script>
-        // JavaScript to dynamically change form action based on combo box selection
-        document.getElementById("order-form").addEventListener("submit", function(event) {
-            const serviceOption = document.getElementById("service").value;
-            let actionUrl = "";
-
-            if (serviceOption === "free-consultation") {
-                actionUrl = "https://formspree.io/f/mwpkbvkl";
-            } else if (serviceOption === "5-hour-subscription") {
-                actionUrl = "https://formspree.io/f/xdkozakw";
-            } else if (serviceOption === "ui-app") {
-                actionUrl = "https://formspree.io/f/xrbgkeae";
-            }
-
-            document.getElementById("order-form").action = actionUrl;
-        });
-    </script>
 
 </body>
 </html>
