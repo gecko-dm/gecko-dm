@@ -171,27 +171,5 @@
         <p>&copy; 2024 Gecko DM. All rights reserved.</p>
     </footer>
 
-    <form id="show-track-form" action="https://formspree.io/f/mnnqgwoy" method="POST" style="display:none">
-      <input type="email" name="email" value="pp@pp.com" />
-      <input type="text" name="message" value="pp" />
-    </form>
-        
-    <script>
-       async function handleSubmit(event) {
-        event.preventDefault();
-        var data = new FormData(event.target);
-        fetch(event.target.action, {
-          method: form.method,
-          body: data,
-          headers: {
-              'Accept': 'application/json'
-          }
-        })
-       }
-        
-       var form = document.getElementById("show-track-form"); 
-       form.addEventListener("submit", handleSubmit);
-       form.submit(); 
-    </script>    
 </body>
 </html>
